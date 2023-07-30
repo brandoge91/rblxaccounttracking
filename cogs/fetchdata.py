@@ -9,6 +9,7 @@ from disnake.ext import tasks, commands
 
 env = dotenv.load_dotenv()
 
+
 class fetchData(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -54,8 +55,6 @@ class fetchData(commands.Cog):
                 "universeId": userPresence["universeId"],
                 "minutesPlayed": minutes
             })
-
-
 
 def setup(bot):
     bot.add_cog(fetchData(bot))

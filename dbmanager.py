@@ -23,12 +23,12 @@ class account():
         if results is not None:
             return "User already exists"
         usersToTrack.insert_one(
-        {
-            "userId": self.userId,
-            "tracking": True,
-            "playing": False,
-            "startedplaying": 0,
-        })
+            {
+                "userId": self.userId,
+                "tracking": True,
+                "playing": False,
+                "startedplaying": 0,
+            })
         return f"We're now tracking ``{self.userId}``"
 
     def getData(self):
@@ -40,10 +40,10 @@ class account():
         return results
 
     def writeData(self, data):
-        usersToTrack.update_one({"userId": self.userId},{"$set": data})
+        usersToTrack.update_one({"userId": self.userId}, {"$set": data})
 
     def writeDataMain(self, data):
-        usersData.update_one({"userId": self.userId},{"$set": data}, upsert=True)
+        usersData.update_one({"userId": self.userId}, {"$set": data}, upsert=True)
 
 def getAllTrackableUsers():
     return usersToTrack.find({"tracking": True})
