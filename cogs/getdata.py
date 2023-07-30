@@ -40,7 +40,7 @@ class getdata(commands.Cog):
         embed.add_field("Last location", data["lastLocation"])
         embed.add_field("Last Online", datetime.strptime(data["lastOnline"], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y/%m/%d %H:%M UTC"))
         userPresenceType = data["userPresenceType"]
-        if userPresenceType is 2 and data["universeId"] is not None:
+        if userPresenceType == 2 and data["universeId"] is not None:
             universe = await robloxClient.get_universe(data["universeId"])
             embed.add_field(name="Currently Playing", value=universe.name)
         embed.set_thumbnail(url=f"https://thumbs.metrik.app/headshot/{user.id}")

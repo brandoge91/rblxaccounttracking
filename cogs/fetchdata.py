@@ -18,7 +18,7 @@ class fetchData(commands.Cog):
     def cog_unload(self):
         self.fetchData.cancel()
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=2)
     async def fetchData(self):
         userIds = [user["userId"] for user in dbmanager.getAllTrackableUsers()]
 
@@ -29,6 +29,7 @@ class fetchData(commands.Cog):
             data=json.dumps({"userIds": userIds}),
             headers={"Content-Type": "application/json"}
         )
+        print(response.status_code)
         userPresencesData = response.json()["userPresences"]
 
         for userPresence in userPresencesData:
