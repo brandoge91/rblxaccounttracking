@@ -25,7 +25,8 @@ class account():
             {
                 "userId": self.userId,
                 "tracking": True,
-                "playing": False
+                "playing": False,
+                "startedplaying": 0,
             })
             return f"We're now tracking ``{self.userId}``"
 

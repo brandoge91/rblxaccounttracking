@@ -37,6 +37,10 @@ class getdata(commands.Cog):
         embed.add_field("Total Hours", data["hoursPlayed"])
         embed.add_field("Last location", data["lastLocation"])
         embed.add_field("Last Online", data["lastOnline"])
+        userPresenceType = data["userPresenceType"]
+        if userPresenceType == 2:
+            universe = await robloxClient.get_universe(data["universeId"])
+            embed.add_field(name="Currently Playing", value=universe.name)
         embed.set_thumbnail(url=f"https://thumbs.metrik.app/headshot/{user.id}")
         await inter.edit_original_message(embed=embed)
 
