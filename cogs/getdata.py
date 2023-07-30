@@ -1,6 +1,7 @@
 import disnake
 import dbmanager
 
+from datetime import datetime
 from roblox import Client
 from roblox import UserNotFound
 from disnake.ext import commands
@@ -26,7 +27,7 @@ class getdata(commands.Cog):
             await inter.edit_original_message("Invalid username.")
             return
         NewUser = dbmanager.account(user.id)
-        data = NewUser.getData()
+        data = NewUser.getDataMain()
         if data is None:
             await inter.edit_original_message("This user has no data recorded.")
             return
@@ -34,11 +35,11 @@ class getdata(commands.Cog):
             title="Users Recorded Data",
             description="Here is all of the users recorded data."
         )
-        embed.add_field("Total Hours", data["hoursPlayed"])
+        embed.add_field("Total Minutes", round(data["minutesPlayed"]))
         embed.add_field("Last location", data["lastLocation"])
-        embed.add_field("Last Online", data["lastOnline"])
+        embed.add_field("Last Online", datetime.strptime(data["lastOnline"], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y/%m/%d %H:%M UTC"))
         userPresenceType = data["userPresenceType"]
-        if userPresenceType == 2:
+        if userPresenceType == 2 and data["universeId"] != None:
             universe = await robloxClient.get_universe(data["universeId"])
             embed.add_field(name="Currently Playing", value=universe.name)
         embed.set_thumbnail(url=f"https://thumbs.metrik.app/headshot/{user.id}")

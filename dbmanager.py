@@ -32,8 +32,18 @@ class account():
         return f"We're now tracking ``{self.userId}``"
 
     def getData(self):
+        results = usersToTrack.find_one({"userId": self.userId})
+        return results
+
+    def getDataMain(self):
         results = usersData.find_one({"userId": self.userId})
         return results
 
-    def writeData(self, lastLocation, LastOnline, userPresenceType, universeId, hoursPlayed):
-        usersData.update_one({"userId": self.userId},{"$set": {"lastLocation": lastLocation, "lastOnline": LastOnline, "userPresenceType": userPresenceType, "universeId": universeId, "hoursPlayed": hoursPlayed}}, upsert=True)
+    def writeData(self, data):
+        usersToTrack.update_one({"userId": self.userId},{"$set": data})
+
+    def writeDataMain(self, data):
+        usersData.update_one({"userId": self.userId},{"$set": data}, upsert=True)
+
+def getAllTrackableUsers():
+    return usersToTrack.find({"tracking": True})
