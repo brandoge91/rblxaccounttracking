@@ -6,14 +6,15 @@ from roblox import UserNotFound
 from disnake.ext import commands
 
 robloxClient = Client()
-class registeruser(commands.Cog):
-    """Register users with the run of a command, not currently role locked."""
+
+class getdata(commands.Cog):
+    """Gets and returns data"""
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.slash_command(description="Register a user for tracking.")
-    async def registeruser(
+    async def getdata(
         self,
         inter: disnake.ApplicationCommandInteraction,
         username: str
@@ -25,9 +26,12 @@ class registeruser(commands.Cog):
             await inter.edit_original_message("Invalid username.")
             return
         NewUser = dbmanager.account(user.id)
-        startTracking = NewUser.startTracking()
+        data = NewUser.getData()
+        if data == None:
+            await inter.edit_original_message("This user has no data recorded.")
+            return
         await inter.edit_original_message(startTracking)
 
 
 def setup(bot):
-    bot.add_cog(registeruser(bot))
+    bot.add_cog(getdata(bot))
