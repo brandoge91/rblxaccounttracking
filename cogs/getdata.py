@@ -19,7 +19,7 @@ class getdata(commands.Cog):
         inter: disnake.ApplicationCommandInteraction,
         username: str
     ):
-        await inter.response.defer(ephemeral=True)
+        await inter.response.defer()
         try:
             user = await robloxClient.get_user_by_username(username)
         except UserNotFound:
@@ -27,10 +27,18 @@ class getdata(commands.Cog):
             return
         NewUser = dbmanager.account(user.id)
         data = NewUser.getData()
-        if data == None:
+        if data is None:
             await inter.edit_original_message("This user has no data recorded.")
             return
-        await inter.edit_original_message(startTracking)
+        embed = disnake.Embed(
+            title="Users Recorded Data",
+            description="Here is all of the users recorded data."
+        )
+        embed.add_field("Total Hours", data["hoursPlayed"])
+        embed.add_field("Last location", data["lastLocation"])
+        embed.add_field("Last Online", data["lastOnline"])
+        embed.set_thumbnail(url=f"https://thumbs.metrik.app/headshot/{user.id}")
+        await inter.edit_original_message(embed=embed)
 
 
 def setup(bot):
