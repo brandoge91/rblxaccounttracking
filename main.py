@@ -1,3 +1,4 @@
+"""Starts discord bot."""
 import os
 import disnake
 from disnake.ext import commands
@@ -5,7 +6,7 @@ from disnake.ext import commands
 import dotenv
 
 
-env = dotenv.load_dotenv()
+ENV = dotenv.load_dotenv()
 
 
 intent = disnake.Intents.default()

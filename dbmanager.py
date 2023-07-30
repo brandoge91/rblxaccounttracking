@@ -1,8 +1,9 @@
+"""Responsible for handling database operations."""
 import os
 import dotenv
 from pymongo.mongo_client import MongoClient
 
-env = dotenv.load_dotenv()
+ENV = dotenv.load_dotenv()
 
 client = MongoClient(os.getenv("connectionString"))
 
@@ -12,39 +13,45 @@ usersToTrack = db.usersToTrack
 usersData = db.usersData
 
 
-class account():
-    """Dbmanager account class"""
+class Account():
+    """Account class."""
 
-    def __init__(self, userId):
-        self.userId = userId
+    def __init__(self, user_id):
+        self.user_id = user_id
 
-    def startTracking(self):
-        results = usersToTrack.find_one({"userId": self.userId})
+    def start_tracking(self):
+        """Starts a 'play session'"""
+        results = usersToTrack.find_one({"userId": self.user_id})
         if results is not None:
             return "User already exists"
         usersToTrack.insert_one(
             {
-                "userId": self.userId,
+                "userId": self.user_id,
                 "tracking": True,
                 "playing": False,
                 "startedplaying": 0,
             })
-        return f"We're now tracking ``{self.userId}``"
+        return f"We're now tracking ``{self.user_id}``"
 
-    def getData(self):
-        results = usersToTrack.find_one({"userId": self.userId})
+    def get_data(self):
+        """Returns account tracking data"""
+        results = usersToTrack.find_one({"userId": self.user_id})
         return results
 
-    def getDataMain(self):
-        results = usersData.find_one({"userId": self.userId})
+    def get_data_main(self):
+        """Returns tracking data."""
+        results = usersData.find_one({"userId": self.user_id})
         return results
 
-    def writeData(self, data):
-        usersToTrack.update_one({"userId": self.userId}, {"$set": data})
+    def write_data(self, data):
+        """Writes account tracking data"""
+        usersToTrack.update_one({"userId": self.user_id}, {"$set": data})
 
-    def writeDataMain(self, data):
-        usersData.update_one({"userId": self.userId}, {"$set": data}, upsert=True)
+    def write_data_main(self, data):
+        """Writes tracking data."""
+        usersData.update_one({"userId": self.user_id}, {"$set": data}, upsert=True)
 
 
-def getAllTrackableUsers():
+def get_all_trackable_users():
+    """Returns all users that are currently being tracked."""
     return usersToTrack.find({"tracking": True})
