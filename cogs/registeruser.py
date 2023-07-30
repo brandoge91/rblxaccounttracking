@@ -6,6 +6,7 @@ from roblox import UserNotFound
 from disnake.ext import commands
 
 robloxClient = Client()
+
 class registeruser(commands.Cog):
     """Register users with the run of a command, not currently role locked."""
 
