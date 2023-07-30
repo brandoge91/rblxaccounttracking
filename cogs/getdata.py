@@ -41,7 +41,7 @@ class getdata(commands.Cog):
         embed.add_field(
             "Last Online",
             datetime.strptime(data["lastOnline"],
-            "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y/%m/%d %H:%M UTC")
+                "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y/%m/%d %H:%M UTC")
         )
         userPresenceType = data["userPresenceType"]
         if userPresenceType == 2 and data["universeId"] is not None:

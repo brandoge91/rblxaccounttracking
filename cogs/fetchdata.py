@@ -45,7 +45,7 @@ class fetchData(commands.Cog):
                 account.writeData({"playing": False})
                 MainData = account.getDataMain()
                 minutes = (time.time() -
-                currentAccountData["startedplaying"]) / 60 if MainData else 0
+                    currentAccountData["startedplaying"]) / 60 if MainData else 0
             else:
                 MainData = account.getDataMain()
                 minutes = MainData["minutesPlayed"] if MainData else 0
