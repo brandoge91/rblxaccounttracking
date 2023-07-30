@@ -45,5 +45,6 @@ class account():
     def writeDataMain(self, data):
         usersData.update_one({"userId": self.userId}, {"$set": data}, upsert=True)
 
+
 def getAllTrackableUsers():
     return usersToTrack.find({"tracking": True})

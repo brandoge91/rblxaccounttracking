@@ -18,7 +18,7 @@ class fetchData(commands.Cog):
     def cog_unload(self):
         self.fetchData.cancel()
 
-    @tasks.loop(minutes=2)
+    @tasks.loop(minutes=1)
     async def fetchData(self):
         userIds = [user["userId"] for user in dbmanager.getAllTrackableUsers()]
 
@@ -44,7 +44,8 @@ class fetchData(commands.Cog):
             elif currentAccountData["playing"] and userPresenceType != 2:
                 account.writeData({"playing": False})
                 MainData = account.getDataMain()
-                minutes = (time.time() - currentAccountData["startedplaying"]) / 60 if MainData else 0
+                minutes = (time.time() -
+                currentAccountData["startedplaying"]) / 60 if MainData else 0
             else:
                 MainData = account.getDataMain()
                 minutes = MainData["minutesPlayed"] if MainData else 0
@@ -56,6 +57,7 @@ class fetchData(commands.Cog):
                 "universeId": userPresence["universeId"],
                 "minutesPlayed": minutes
             })
+
 
 def setup(bot):
     bot.add_cog(fetchData(bot))

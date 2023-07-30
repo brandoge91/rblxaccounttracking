@@ -38,7 +38,11 @@ class getdata(commands.Cog):
         )
         embed.add_field("Total Minutes", round(data["minutesPlayed"]))
         embed.add_field("Last location", data["lastLocation"])
-        embed.add_field("Last Online", datetime.strptime(data["lastOnline"], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y/%m/%d %H:%M UTC"))
+        embed.add_field(
+            "Last Online",
+            datetime.strptime(data["lastOnline"],
+            "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y/%m/%d %H:%M UTC")
+        )
         userPresenceType = data["userPresenceType"]
         if userPresenceType == 2 and data["universeId"] is not None:
             universe = await robloxClient.get_universe(data["universeId"])
