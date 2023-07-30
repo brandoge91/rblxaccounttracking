@@ -44,7 +44,9 @@ class getdata(commands.Cog):
         userPresenceType = data["userPresenceType"]
         if userPresenceType == 2 and data["universeId"] is not None:
             universe = await robloxClient.get_universe(data["universeId"])
+            StartedPlaying = NewUser.getData()["startedplaying"]
             embed.add_field(name="Currently Playing", value=universe.name)
+            embed.add_field(name="Started Playing", value=f"<t:{int(StartedPlaying)}:R>")
         embed.set_thumbnail(url=f"https://thumbs.metrik.app/headshot/{user.id}")
         await inter.edit_original_message(embed=embed)
 
