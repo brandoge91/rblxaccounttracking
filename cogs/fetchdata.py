@@ -11,7 +11,7 @@ env = dotenv.load_dotenv()
 
 
 class fetchData(commands.Cog):
-    """Fetches data perodically."""
+    """Fetches data periodically."""
 
     def __init__(self, bot):
         self.bot = bot
