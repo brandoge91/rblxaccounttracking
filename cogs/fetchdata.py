@@ -11,6 +11,8 @@ env = dotenv.load_dotenv()
 
 
 class fetchData(commands.Cog):
+    """Fetches data perodically."""
+
     def __init__(self, bot):
         self.bot = bot
         self.fetchData.start()
@@ -44,8 +46,7 @@ class fetchData(commands.Cog):
             elif currentAccountData["playing"] and userPresenceType != 2:
                 account.writeData({"playing": False})
                 MainData = account.getDataMain()
-                minutes = (time.time() -
-                    currentAccountData["startedplaying"]) / 60 if MainData else 0
+                minutes = (time.time() - currentAccountData["startedplaying"]) / 60 if MainData else 0
             else:
                 MainData = account.getDataMain()
                 minutes = MainData["minutesPlayed"] if MainData else 0
