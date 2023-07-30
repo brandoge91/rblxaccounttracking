@@ -16,7 +16,9 @@ class registeruser(commands.Cog):
         userid: int
     ):
         await inter.response.defer(ephemeral=True)
-        await inter.edit_original_message(f"We're now tracing {userid}!")
+        NewUser = dbmanager.account(userid)
+        startTracking = NewUser.startTracking()
+        await inter.edit_original_message(NewUser)
 
 
 def setup(bot):
