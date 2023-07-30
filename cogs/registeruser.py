@@ -4,9 +4,7 @@ from disnake.ext import commands
 
 
 class registeruser(commands.Cog):
-    """
-    Register users with the run of a command, not currently role locked.
-    """
+    """Register users with the run of a command, not currently role locked."""
 
     def __init__(self, bot):
         self.bot = bot

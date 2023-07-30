@@ -15,4 +15,4 @@ bot.persistent_views_added = False
 bot.load_extensions("./cogs")
 
 
-bot.run(os.getenv("BotToken"))
+bot.run(os.getenv("botToken"))
